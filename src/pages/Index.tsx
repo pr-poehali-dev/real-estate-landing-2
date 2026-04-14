@@ -50,9 +50,9 @@ function QuizModal({ onClose }: { onClose: () => void }) {
 }
 
 const plans = [
-  { type: "1-комнатная", area: "38–47 м²", price: "от 5,8 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "Хит продаж", badgeColor: "bg-amber-500" },
-  { type: "2-комнатная", area: "55–68 м²", price: "от 8,4 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "", badgeColor: "" },
-  { type: "3-комнатная", area: "72–95 м²", price: "от 8,9 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
+  { type: "1-комнатная", area: "40,26 м²", price: "от 5,8 млн ₽", floor: "6 этаж", emoji: "", image: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/eed7a994-441f-498e-ac8d-9ed504eb88da.png", badge: "Хит продаж", badgeColor: "bg-amber-500" },
+  { type: "2-комнатная", area: "55–68 м²", price: "от 8,4 млн ₽", floor: "2–26 этаж", emoji: "🏠", image: "", badge: "", badgeColor: "" },
+  { type: "3-комнатная", area: "72–95 м²", price: "от 8,9 млн ₽", floor: "10–26 этаж", emoji: "🌆", image: "", badge: "", badgeColor: "" },
 ];
 
 const advantages = [
@@ -320,8 +320,12 @@ export default function Index() {
                   key={i}
                   className="bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-50 transition-all duration-300 group flex flex-col"
                 >
-                  <div className="relative bg-gradient-to-br from-sky-50 to-blue-100 p-8 text-center text-5xl">
-                    {plan.emoji}
+                  <div className="relative bg-gradient-to-br from-sky-50 to-blue-100 text-center text-5xl overflow-hidden" style={{minHeight: '160px'}}>
+                    {plan.image ? (
+                      <img src={plan.image} alt={plan.type} className="w-full h-full object-contain p-3" style={{maxHeight: '200px'}} />
+                    ) : (
+                      <div className="p-8">{plan.emoji}</div>
+                    )}
                     {plan.badge && (
                       <span className={`absolute top-3 right-3 ${plan.badgeColor} text-white text-[10px] font-black px-2 py-1 rounded-lg`}>
                         {plan.badge}
