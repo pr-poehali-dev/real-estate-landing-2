@@ -122,32 +122,17 @@ export default function Index() {
       {/* ── NAV ── */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-            {/* Башня-буква Н: 5 колонок × 7 строк, средняя колонка — пробел кроме строк 3-4 */}
-            <div className="flex gap-[3px]" style={{height: 44}}>
-              {/* Левая стойка: 2 колонки */}
-              {[0,1].map(c => (
-                <div key={c} className="flex flex-col gap-[2px] h-full">
-                  {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
-                    <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: color}} />
-                  ))}
-                </div>
-              ))}
-              {/* Средняя перекладина: только строки 3-4 (индекс 2-3) */}
-              <div className="flex flex-col gap-[2px] h-full">
-                {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
-                  <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: (r === 2 || r === 3) ? color : 'transparent'}} />
-                ))}
-              </div>
-              {/* Правая стойка: 2 колонки */}
-              {[0,1].map(c => (
-                <div key={c} className="flex flex-col gap-[2px] h-full">
-                  {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
-                    <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: color}} />
-                  ))}
-                </div>
-              ))}
-            </div>
+          <button onClick={() => scrollTo("hero")} className="flex items-center gap-1.5">
+            {/* Точный SVG логотипа с seven-nebo.ru, белый фон убран */}
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="26 37 86 42" fill="none">
+              <path fill="#68B438" d="M34.557 73.373h1.832v-4.91h-1.832zm-6.437 0h1.832v-4.91H28.12zm4.315 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
+              <path fill="#F9B100" d="M34.557 68.215h1.832v-4.91h-1.832zm-4.261 0h1.833v-4.91h-1.833zm-2.176 0h1.832v-4.91H28.12zm-2.12 0h1.832v-4.91H26z"/>
+              <path fill="#EE751E" d="M34.557 63.058h1.832v-4.91h-1.832zm-4.261 0h1.833v-4.91h-1.833zm2.139 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
+              <path fill="#E51C47" d="M34.557 57.9h1.832v-4.91h-1.832zm-6.437 0h1.832v-4.91H28.12zm4.315 0h1.833v-4.91h-1.833zM26 57.9h1.832v-4.91H26z"/>
+              <path fill="#B12582" d="M34.557 52.743h1.832v-4.911h-1.832zm-4.261 0h1.833v-4.911h-1.833zm-2.176 0h1.832v-4.911H28.12zm-2.12 0h1.832v-4.911H26z"/>
+              <path fill="#007EC5" d="M34.557 47.585h1.832v-4.91h-1.832zm-4.261 0h1.833v-4.91h-1.833zm2.139 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
+              <path fill="#00ABCA" d="M34.557 42.427h1.832v-4.91h-1.832zm-6.437 0h1.832v-4.91H28.12zm4.315 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
+            </svg>
             {/* Текст */}
             <div className="text-left leading-none">
               <div className="text-white/80 text-[10px] font-light tracking-widest uppercase">Седьмое</div>
