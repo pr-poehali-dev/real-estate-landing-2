@@ -124,9 +124,9 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex flex-col items-start gap-0.5">
             <img
-              src="https://xn--7--blcprricl7bl.xn--p1ai/wp-content/uploads/2019/12/logo-litum.svg"
-              alt="Литум"
-              className="h-8 w-auto brightness-0 invert"
+              src="https://cdn.poehali.dev/files/32a9a50b-bee5-4d78-898b-74c8e544a4f1.png"
+              alt="Седьмое Небо"
+              className="h-10 w-auto"
             />
             <div className="text-sky-400 text-[10px] leading-none tracking-widest">ИЖЕВСК</div>
           </button>
