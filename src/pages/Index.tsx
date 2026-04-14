@@ -122,9 +122,9 @@ export default function Index() {
       {/* ── NAV ── */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex items-center gap-1.5">
+          <button onClick={() => scrollTo("hero")} className="flex items-center gap-0.5">
             {/* Точный SVG логотипа с seven-nebo.ru, белый фон убран */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="26 37 86 42" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="52" viewBox="25 37 13 38" fill="none">
               <path fill="#68B438" d="M34.557 73.373h1.832v-4.91h-1.832zm-6.437 0h1.832v-4.91H28.12zm4.315 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
               <path fill="#F9B100" d="M34.557 68.215h1.832v-4.91h-1.832zm-4.261 0h1.833v-4.91h-1.833zm-2.176 0h1.832v-4.91H28.12zm-2.12 0h1.832v-4.91H26z"/>
               <path fill="#EE751E" d="M34.557 63.058h1.832v-4.91h-1.832zm-4.261 0h1.833v-4.91h-1.833zm2.139 0h1.833v-4.91h-1.833zm-6.435 0h1.832v-4.91H26z"/>
