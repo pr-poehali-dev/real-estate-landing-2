@@ -122,14 +122,13 @@ export default function Index() {
       {/* ── NAV ── */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg">
-              <span className="text-white text-xs font-black">7Н</span>
-            </div>
-            <div className="text-left">
-              <div className="text-white font-bold text-sm leading-none tracking-wider">СЕДЬМОЕ НЕБО</div>
-              <div className="text-sky-400 text-[10px] leading-none mt-0.5 tracking-widest">ИЖЕВСК</div>
-            </div>
+          <button onClick={() => scrollTo("hero")} className="flex flex-col items-start gap-0.5">
+            <img
+              src="https://xn--7--blcprricl7bl.xn--p1ai/wp-content/uploads/2019/12/logo-litum.svg"
+              alt="Литум"
+              className="h-8 w-auto brightness-0 invert"
+            />
+            <div className="text-sky-400 text-[10px] leading-none tracking-widest">ИЖЕВСК</div>
           </button>
 
           <nav className="hidden md:flex items-center gap-6 text-sm text-white/60">
@@ -271,9 +270,9 @@ export default function Index() {
               {advantages.map((adv, i) => (
                 <div
                   key={i}
-                  className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 bg-slate-50/80"
+                  className="group p-6 rounded-2xl border-2 border-sky-100 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-100 transition-all duration-300 bg-sky-50/60"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-200 to-blue-200 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Icon name={adv.icon} fallback="Star" size={22} className="text-blue-600" />
                   </div>
                   <h3 className="font-black text-slate-900 mb-2 text-[15px]">{adv.title}</h3>
