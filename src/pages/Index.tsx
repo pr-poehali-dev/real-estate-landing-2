@@ -181,10 +181,12 @@ export default function Index() {
         >
           {/* LEFT */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-400/30 rounded-full px-4 py-1.5 text-sky-300 text-xs font-semibold mb-6 tracking-wider">
+            <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-400/30 rounded-full px-4 py-1.5 text-sky-300 text-xs font-semibold mb-3 tracking-wider">
               <Icon name="MapPin" size={12} />
               ИЖЕВСК · КОМФОРТ-КЛАСС
             </div>
+
+            <div className="text-white/40 text-xs mb-5">ПСК: 6,301% — 23,612%</div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] mb-5">
               Жилой комплекс<br />
