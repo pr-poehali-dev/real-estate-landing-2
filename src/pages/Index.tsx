@@ -16,24 +16,35 @@ function useInView(threshold = 0.12) {
   return { ref, inView };
 }
 
-function QuizButton({ dark = false, label = "Получить консультацию →", big = false }: { dark?: boolean; label?: string; big?: boolean }) {
-  return (
-    <a
-      href="https://mrqz.me/kviz_7nebo"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`block w-full text-center font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-100 shadow-lg shadow-amber-500/30 bg-amber-500 text-white hover:bg-amber-400 ${big ? "py-4 px-8 text-base" : "py-3 px-6 text-sm"}`}
-    >
-      {label}
-    </a>
-  );
-}
+function QuizModal({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
 
-function LeadForm({ dark = false }: { dark?: boolean }) {
   return (
-    <div className="flex flex-col gap-3">
-      <QuizButton dark={dark} label="Подобрать квартиру →" big />
-      <p className="text-xs opacity-40 text-center">{dark ? "Займёт 2 минуты — подберём лучший вариант" : "Пройдите короткий квиз — подберём лучший вариант"}</p>
+    <div
+      className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden shadow-2xl"
+        style={{ height: "min(85vh, 700px)" }}
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 z-10 bg-slate-900/70 hover:bg-slate-900 text-white rounded-full p-1.5 transition-colors"
+        >
+          <Icon name="X" size={18} />
+        </button>
+        <iframe
+          src="https://mrqz.me/kviz_7nebo"
+          className="w-full h-full border-0"
+          title="Подбор квартиры"
+          allow="clipboard-write"
+        />
+      </div>
     </div>
   );
 }
@@ -70,6 +81,7 @@ export default function Index() {
   const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -97,8 +109,12 @@ export default function Index() {
     ["contact", "Контакты"],
   ];
 
+  const openQuiz = () => setQuizOpen(true);
+
   return (
     <div style={{ fontFamily: "'Golos Text', sans-serif" }} className="bg-slate-50 text-slate-900 min-h-screen overflow-x-hidden">
+
+      {quizOpen && <QuizModal onClose={() => setQuizOpen(false)} />}
 
       {/* GOOGLE FONT */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap');`}</style>
@@ -199,14 +215,12 @@ export default function Index() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="https://mrqz.me/kviz_7nebo"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openQuiz}
                 className="bg-amber-500 text-white font-bold py-4 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-2xl shadow-amber-500/40 text-base text-center"
               >
                 Получить консультацию
-              </a>
+              </button>
             </div>
           </div>
 
@@ -269,9 +283,9 @@ export default function Index() {
               <p className="text-white/50 text-sm">Наш менеджер ответит на все вопросы и подберёт квартиру</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <a href="https://mrqz.me/kviz_7nebo" target="_blank" rel="noopener noreferrer" className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30 text-center">
+              <button onClick={openQuiz} className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30 text-center">
                 Оставить заявку
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -321,14 +335,12 @@ export default function Index() {
                     </div>
                     <div className="border-t border-slate-100 pt-4">
                       <div className="text-blue-600 font-black text-lg mb-3">{plan.price}</div>
-                      <a
-                        href="https://mrqz.me/kviz_7nebo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm text-center block"
+                      <button
+                        onClick={openQuiz}
+                        className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm text-center"
                       >
                         Узнать детали →
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -337,14 +349,12 @@ export default function Index() {
 
             <div className="mt-10 text-center">
               <p className="text-slate-400 text-sm mb-4">Не нашли подходящий вариант? Подберём квартиру под ваш бюджет</p>
-              <a
-                href="https://mrqz.me/kviz_7nebo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-lg shadow-amber-500/30 inline-block"
+              <button
+                onClick={openQuiz}
+                className="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-lg shadow-amber-500/30"
               >
                 Подобрать квартиру бесплатно
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -390,14 +400,12 @@ export default function Index() {
             </div>
 
             <div className="mt-12 text-center">
-              <a
-                href="https://mrqz.me/kviz_7nebo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-amber-500 text-white font-bold py-4 px-10 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-xl shadow-amber-500/30 text-base inline-block"
+              <button
+                onClick={openQuiz}
+                className="bg-amber-500 text-white font-bold py-4 px-10 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-xl shadow-amber-500/30 text-base"
               >
                 Хочу такую квартиру
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -481,9 +489,9 @@ export default function Index() {
                 <p className="text-slate-500 text-sm">Запишитесь на экскурсию — покажем объект, ответим на вопросы</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                <a href="https://mrqz.me/kviz_7nebo" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg text-center">
+                <button onClick={openQuiz} className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg">
                   Записаться на экскурсию
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -515,14 +523,12 @@ export default function Index() {
                 <p className="text-sky-400 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНО · 2 МИНУТЫ</p>
                 <h3 className="text-white font-black text-2xl mb-2">Подберём квартиру для вас</h3>
                 <p className="text-white/40 text-sm mb-6">Ответьте на несколько вопросов — поможем выбрать лучший вариант под ваш бюджет и пожелания</p>
-                <a
-                  href="https://mrqz.me/kviz_7nebo"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={openQuiz}
                   className="block w-full text-center bg-amber-500 text-white font-bold py-4 px-6 rounded-xl hover:bg-amber-400 transition-all hover:scale-[1.02] shadow-xl shadow-amber-500/30 text-base mb-3"
                 >
-                  Пройти квиз и узнать цену →
-                </a>
+                  Узнать цену →
+                </button>
                 <p className="text-white/25 text-xs text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
               </div>
 
