@@ -228,9 +228,14 @@ export default function Index() {
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-7 sm:p-8 shadow-2xl">
             <p className="text-sky-300 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ</p>
             <h3 className="text-white font-black text-2xl mb-1">Узнайте цену</h3>
-            <p className="text-white/50 text-sm mb-6">Менеджер перезвонит в течение 15 минут</p>
-            <LeadForm dark />
-            <div className="mt-5 flex items-center gap-2 text-white/30 text-xs">
+            <p className="text-white/50 text-sm mb-6">Ответьте на несколько вопросов — подберём лучший вариант</p>
+            <button
+              onClick={openQuiz}
+              className="block w-full text-center bg-amber-500 text-white font-bold py-4 px-6 rounded-xl hover:bg-amber-400 transition-all hover:scale-[1.02] shadow-xl shadow-amber-500/30 text-base mb-3"
+            >
+              Подобрать квартиру →
+            </button>
+            <div className="mt-2 flex items-center gap-2 text-white/30 text-xs justify-center">
               <Icon name="Lock" size={12} />
               Данные защищены и не передаются третьим лицам
             </div>
