@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/f9c569d3-a561-46f2-8bf0-15a15b652d03.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/a0d805f8-257e-43ae-a8bd-774ba2edfa27.jpg";
 const INTERIOR_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/1768deb3-2985-4c01-ba2f-a92190189a79.jpg";
-const AERIAL_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/ee9f8544-be8e-4ba8-abb0-06e1324fe043.jpg";
+const AERIAL_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/a0d805f8-257e-43ae-a8bd-774ba2edfa27.jpg";
 
 function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
@@ -74,10 +74,10 @@ function LeadForm({ dark = false }: { dark?: boolean }) {
 }
 
 const plans = [
-  { type: "Студия", area: "28–32 м²", price: "от 6,2 млн ₽", floor: "2–26 этаж", emoji: "📐", badge: "Хит продаж", badgeColor: "bg-amber-500" },
-  { type: "1-комнатная", area: "38–47 м²", price: "от 7,5 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "", badgeColor: "" },
-  { type: "2-комнатная", area: "55–68 м²", price: "от 10,2 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "Видовые", badgeColor: "bg-sky-500" },
-  { type: "3-комнатная", area: "72–95 м²", price: "от 13,8 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
+  { type: "Студия", area: "28–32 м²", price: "от 5,8 млн ₽", floor: "2–26 этаж", emoji: "📐", badge: "Хит продаж", badgeColor: "bg-amber-500" },
+  { type: "1-комнатная", area: "38–47 м²", price: "от 7,2 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "", badgeColor: "" },
+  { type: "2-комнатная", area: "55–68 м²", price: "от 9,8 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "Видовые", badgeColor: "bg-sky-500" },
+  { type: "3-комнатная", area: "72–95 м²", price: "от 13,2 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
 ];
 
 const advantages = [
@@ -89,13 +89,15 @@ const advantages = [
   { icon: "Car", title: "Развитая инфраструктура", desc: "Школы, детские сады, магазины, поликлиники и транспорт — всё в пешей доступности" },
 ];
 
+const RENDER_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/a0d805f8-257e-43ae-a8bd-774ba2edfa27.jpg";
+
 const gallery = [
-  { src: HERO_IMG, label: "Фасад ЖК" },
-  { src: INTERIOR_IMG, label: "Интерьер квартиры" },
-  { src: AERIAL_IMG, label: "Вид с высоты" },
-  { src: INTERIOR_IMG, label: "Кухня-гостиная" },
-  { src: HERO_IMG, label: "Благоустройство" },
-  { src: AERIAL_IMG, label: "Район" },
+  { src: RENDER_IMG, label: "Фасад ЖК — вечерний вид" },
+  { src: RENDER_IMG, label: "Вид с улицы" },
+  { src: RENDER_IMG, label: "Благоустройство территории" },
+  { src: RENDER_IMG, label: "Входная группа" },
+  { src: RENDER_IMG, label: "Общий вид комплекса" },
+  { src: RENDER_IMG, label: "Панорама района" },
 ];
 
 export default function Index() {
@@ -219,7 +221,7 @@ export default function Index() {
             {/* Stats */}
             <div className="flex flex-wrap gap-3 mb-9">
               {[
-                { label: "ЦЕНА ОТ", val: "6,2 млн ₽" },
+                { label: "ЦЕНА ОТ", val: "5,8 млн ₽" },
                 { label: "ЭТАЖЕЙ", val: "26" },
                 { label: "СДАЧА", val: "2026" },
               ].map(s => (
