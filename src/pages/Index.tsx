@@ -215,7 +215,7 @@ export default function Index() {
             <div className="flex flex-wrap gap-3 mb-9">
               {[
                 { label: "ЦЕНА ОТ", val: "5,8 млн ₽" },
-                { label: "ЭТАЖЕЙ", val: "26" },
+                { label: "ЭТАЖЕЙ", val: "17" },
                 { label: "СДАЧА", val: "2026" },
               ].map(s => (
                 <div key={s.label} className="bg-white/10 backdrop-blur border border-white/15 rounded-xl px-4 py-3">
