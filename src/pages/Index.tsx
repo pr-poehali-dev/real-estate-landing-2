@@ -92,11 +92,9 @@ const RENDER_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1e
 
 const gallery = [
   { src: RENDER_IMG, label: "Фасад ЖК — вечерний вид" },
-  { src: RENDER_IMG, label: "Вид с улицы" },
-  { src: RENDER_IMG, label: "Благоустройство территории" },
-  { src: RENDER_IMG, label: "Входная группа" },
-  { src: RENDER_IMG, label: "Общий вид комплекса" },
-  { src: RENDER_IMG, label: "Панорама района" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/8ceb6228-3ef8-45f9-a2c3-ad3a9500affc.png", label: "Входная группа" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/ae80c658-551c-44cb-ae06-37d835aef547.png", label: "Вид с балкона" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/7fbb9c41-0510-42d1-9125-7c56f9fe1c03.png", label: "Благоустройство территории" },
 ];
 
 export default function Index() {
