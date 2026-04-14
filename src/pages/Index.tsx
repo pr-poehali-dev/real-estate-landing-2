@@ -92,9 +92,10 @@ const RENDER_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1e
 
 const gallery = [
   { src: RENDER_IMG, label: "Фасад ЖК — вечерний вид" },
-  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/8ceb6228-3ef8-45f9-a2c3-ad3a9500affc.png", label: "Входная группа" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/8ceb6228-3ef8-45f9-a2c3-ad3a9500affc.png", label: "Холл жилого этажа" },
   { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/ae80c658-551c-44cb-ae06-37d835aef547.png", label: "Вид с балкона" },
-  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/7fbb9c41-0510-42d1-9125-7c56f9fe1c03.png", label: "Благоустройство территории" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/7fbb9c41-0510-42d1-9125-7c56f9fe1c03.png", label: "Фасад ЖК — утренний вид" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/5ab7a673-d494-444b-af20-eeb8a129e774.png", label: "Входная группа" },
 ];
 
 export default function Index() {
