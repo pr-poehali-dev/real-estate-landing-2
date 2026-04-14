@@ -16,60 +16,25 @@ function useInView(threshold = 0.12) {
   return { ref, inView };
 }
 
-function LeadForm({ dark = false }: { dark?: boolean }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-  };
-
-  if (sent) {
-    return (
-      <div className={`flex flex-col items-center justify-center py-8 gap-3 ${dark ? "text-white" : "text-navy"}`}>
-        <div className="text-4xl">✓</div>
-        <p className="font-semibold text-lg">Заявка отправлена!</p>
-        <p className="text-sm opacity-60">Мы перезвоним в течение 15 минут</p>
-      </div>
-    );
-  }
-
+function QuizButton({ dark = false, label = "Получить консультацию →", big = false }: { dark?: boolean; label?: string; big?: boolean }) {
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input
-        type="text"
-        placeholder="Ваше имя"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        required
-        className={`px-4 py-3 rounded-xl text-sm outline-none transition-all border-2 ${
-          dark
-            ? "bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-sky-300"
-            : "bg-white border-blue-100 text-slate-800 placeholder:text-slate-400 focus:border-blue-400"
-        }`}
-      />
-      <input
-        type="tel"
-        placeholder="+7 (___) ___-__-__"
-        value={phone}
-        onChange={e => setPhone(e.target.value)}
-        required
-        className={`px-4 py-3 rounded-xl text-sm outline-none transition-all border-2 ${
-          dark
-            ? "bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-sky-300"
-            : "bg-white border-blue-100 text-slate-800 placeholder:text-slate-400 focus:border-blue-400"
-        }`}
-      />
-      <button
-        type="submit"
-        className="bg-amber-500 text-white font-semibold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-100 shadow-lg shadow-amber-500/30 text-sm"
-      >
-        Получить консультацию →
-      </button>
-      <p className="text-xs opacity-40 text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
-    </form>
+    <a
+      href="https://mrqz.me/kviz_7nebo"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`block w-full text-center font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-100 shadow-lg shadow-amber-500/30 bg-amber-500 text-white hover:bg-amber-400 ${big ? "py-4 px-8 text-base" : "py-3 px-6 text-sm"}`}
+    >
+      {label}
+    </a>
+  );
+}
+
+function LeadForm({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <QuizButton dark={dark} label="Подобрать квартиру →" big />
+      <p className="text-xs opacity-40 text-center">{dark ? "Займёт 2 минуты — подберём лучший вариант" : "Пройдите короткий квиз — подберём лучший вариант"}</p>
+    </div>
   );
 }
 
@@ -96,7 +61,10 @@ const gallery = [
   { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/ae80c658-551c-44cb-ae06-37d835aef547.png", label: "Вид с балкона" },
   { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/7fbb9c41-0510-42d1-9125-7c56f9fe1c03.png", label: "Фасад ЖК — утренний вид" },
   { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/5ab7a673-d494-444b-af20-eeb8a129e774.png", label: "Входная группа" },
+  { src: "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/bucket/f4e4cdab-9474-40bb-8caf-12a56aa79b4c.png", label: "Благоустройство территории" },
 ];
+
+const QUIZ_URL = "https://mrqz.me/kviz_7nebo";
 
 export default function Index() {
   const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
@@ -231,12 +199,14 @@ export default function Index() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => scrollTo("contact")}
-                className="bg-amber-500 text-white font-bold py-4 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-2xl shadow-amber-500/40 text-base"
+              <a
+                href="https://mrqz.me/kviz_7nebo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-amber-500 text-white font-bold py-4 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-2xl shadow-amber-500/40 text-base text-center"
               >
                 Получить консультацию
-              </button>
+              </a>
             </div>
           </div>
 
@@ -299,9 +269,9 @@ export default function Index() {
               <p className="text-white/50 text-sm">Наш менеджер ответит на все вопросы и подберёт квартиру</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <button onClick={() => scrollTo("contact")} className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30">
+              <a href="https://mrqz.me/kviz_7nebo" target="_blank" rel="noopener noreferrer" className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30 text-center">
                 Оставить заявку
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -351,12 +321,14 @@ export default function Index() {
                     </div>
                     <div className="border-t border-slate-100 pt-4">
                       <div className="text-blue-600 font-black text-lg mb-3">{plan.price}</div>
-                      <button
-                        onClick={() => scrollTo("contact")}
-                        className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+                      <a
+                        href="https://mrqz.me/kviz_7nebo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm text-center block"
                       >
                         Узнать детали →
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -365,12 +337,14 @@ export default function Index() {
 
             <div className="mt-10 text-center">
               <p className="text-slate-400 text-sm mb-4">Не нашли подходящий вариант? Подберём квартиру под ваш бюджет</p>
-              <button
-                onClick={() => scrollTo("contact")}
-                className="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-lg shadow-amber-500/30"
+              <a
+                href="https://mrqz.me/kviz_7nebo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-lg shadow-amber-500/30 inline-block"
               >
                 Подобрать квартиру бесплатно
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -416,12 +390,14 @@ export default function Index() {
             </div>
 
             <div className="mt-12 text-center">
-              <button
-                onClick={() => scrollTo("contact")}
-                className="bg-amber-500 text-white font-bold py-4 px-10 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-xl shadow-amber-500/30 text-base"
+              <a
+                href="https://mrqz.me/kviz_7nebo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-amber-500 text-white font-bold py-4 px-10 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-xl shadow-amber-500/30 text-base inline-block"
               >
                 Хочу такую квартиру
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -505,9 +481,9 @@ export default function Index() {
                 <p className="text-slate-500 text-sm">Запишитесь на экскурсию — покажем объект, ответим на вопросы</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                <button onClick={() => scrollTo("contact")} className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg">
+                <a href="https://mrqz.me/kviz_7nebo" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg text-center">
                   Записаться на экскурсию
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -534,12 +510,20 @@ export default function Index() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {/* Form */}
-              <div className="bg-white/8 backdrop-blur-xl border border-white/15 rounded-2xl p-7 sm:p-8">
-                <p className="text-sky-400 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ</p>
-                <h3 className="text-white font-black text-2xl mb-1">Оставить заявку</h3>
-                <p className="text-white/40 text-sm mb-6">Подберём квартиру под ваш бюджет и пожелания</p>
-                <LeadForm dark />
+              {/* Quiz CTA */}
+              <div className="bg-white/8 backdrop-blur-xl border border-white/15 rounded-2xl p-7 sm:p-8 flex flex-col justify-center">
+                <p className="text-sky-400 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНО · 2 МИНУТЫ</p>
+                <h3 className="text-white font-black text-2xl mb-2">Подберём квартиру для вас</h3>
+                <p className="text-white/40 text-sm mb-6">Ответьте на несколько вопросов — поможем выбрать лучший вариант под ваш бюджет и пожелания</p>
+                <a
+                  href="https://mrqz.me/kviz_7nebo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center bg-amber-500 text-white font-bold py-4 px-6 rounded-xl hover:bg-amber-400 transition-all hover:scale-[1.02] shadow-xl shadow-amber-500/30 text-base mb-3"
+                >
+                  Пройти квиз и узнать цену →
+                </a>
+                <p className="text-white/25 text-xs text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
               </div>
 
               {/* Contacts */}
