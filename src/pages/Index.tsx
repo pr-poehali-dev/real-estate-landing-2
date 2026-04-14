@@ -123,25 +123,23 @@ export default function Index() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-            {/* Цветная башня */}
-            <div className="flex gap-[2px] items-end h-10">
-              <div className="flex flex-col gap-[2px]">
-                <div className="w-2 h-2 bg-cyan-400" />
-                <div className="w-2 h-2 bg-blue-500" />
-                <div className="w-2 h-2 bg-purple-600" />
-                <div className="w-2 h-2 bg-red-500" />
-                <div className="w-2 h-2 bg-orange-500" />
-                <div className="w-2 h-2 bg-yellow-400" />
-                <div className="w-2 h-2 bg-green-500" />
-              </div>
-              <div className="flex flex-col gap-[2px]">
-                <div className="w-2 h-2 bg-cyan-300" />
-                <div className="w-2 h-2 bg-blue-400" />
-                <div className="w-2 h-2 bg-pink-500" />
-                <div className="w-2 h-2 bg-orange-400" />
-                <div className="w-2 h-2 bg-yellow-300" />
-                <div className="w-2 h-2 bg-lime-500" />
-              </div>
+            {/* Башня-буква Н из цветных прямоугольников */}
+            <div className="flex flex-col gap-[2px]" style={{height: 40}}>
+              {[
+                { color: "#3dbcd4", cols: [1,0,1,1] },
+                { color: "#2e7fc1", cols: [1,0,1,1] },
+                { color: "#9b2e9b", cols: [1,1,1,1] },
+                { color: "#d42b54", cols: [1,1,1,1] },
+                { color: "#e87020", cols: [1,1,1,1] },
+                { color: "#e8b820", cols: [1,1,1,1] },
+                { color: "#5ab532", cols: [1,1,1,1] },
+              ].map((row, i) => (
+                <div key={i} className="flex gap-[2px] flex-1">
+                  {row.cols.map((on, j) => (
+                    <div key={j} className="w-[5px] h-full rounded-[1px]" style={{ background: on ? row.color : 'transparent' }} />
+                  ))}
+                </div>
+              ))}
             </div>
             {/* Текст */}
             <div className="text-left leading-none">
