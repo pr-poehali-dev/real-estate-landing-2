@@ -122,14 +122,33 @@ export default function Index() {
       {/* ── NAV ── */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex flex-col items-start gap-0.5">
-            <img
-              src="https://cdn.poehali.dev/files/fab6b4c2-9966-4b5b-b108-48b7d4a9bcee.png"
-              alt="Седьмое Небо"
-              className="h-10 w-auto"
-              style={{ mixBlendMode: "screen" }}
-            />
-            <div className="text-sky-400 text-[10px] leading-none tracking-widest">ИЖЕВСК</div>
+          <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
+            {/* Цветная башня */}
+            <div className="flex gap-[2px] items-end h-10">
+              <div className="flex flex-col gap-[2px]">
+                <div className="w-2 h-2 bg-cyan-400" />
+                <div className="w-2 h-2 bg-blue-500" />
+                <div className="w-2 h-2 bg-purple-600" />
+                <div className="w-2 h-2 bg-red-500" />
+                <div className="w-2 h-2 bg-orange-500" />
+                <div className="w-2 h-2 bg-yellow-400" />
+                <div className="w-2 h-2 bg-green-500" />
+              </div>
+              <div className="flex flex-col gap-[2px]">
+                <div className="w-2 h-2 bg-cyan-300" />
+                <div className="w-2 h-2 bg-blue-400" />
+                <div className="w-2 h-2 bg-pink-500" />
+                <div className="w-2 h-2 bg-orange-400" />
+                <div className="w-2 h-2 bg-yellow-300" />
+                <div className="w-2 h-2 bg-lime-500" />
+              </div>
+            </div>
+            {/* Текст */}
+            <div className="text-left leading-none">
+              <div className="text-white/80 text-[10px] font-light tracking-widest uppercase">Седьмое</div>
+              <div className="text-white font-black text-xl leading-none tracking-wide uppercase">НЕБО</div>
+              <div className="text-sky-400 text-[9px] tracking-widest uppercase mt-0.5">Ижевск</div>
+            </div>
           </button>
 
           <nav className="hidden md:flex items-center gap-6 text-sm text-white/60">
