@@ -123,20 +123,27 @@ export default function Index() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-            {/* Башня-буква Н из цветных прямоугольников */}
-            <div className="flex flex-col gap-[2px]" style={{height: 40}}>
-              {[
-                { color: "#3dbcd4", cols: [1,0,1,1] },
-                { color: "#2e7fc1", cols: [1,0,1,1] },
-                { color: "#9b2e9b", cols: [1,1,1,1] },
-                { color: "#d42b54", cols: [1,1,1,1] },
-                { color: "#e87020", cols: [1,1,1,1] },
-                { color: "#e8b820", cols: [1,1,1,1] },
-                { color: "#5ab532", cols: [1,1,1,1] },
-              ].map((row, i) => (
-                <div key={i} className="flex gap-[2px] flex-1">
-                  {row.cols.map((on, j) => (
-                    <div key={j} className="w-[5px] h-full rounded-[1px]" style={{ background: on ? row.color : 'transparent' }} />
+            {/* Башня-буква Н: 5 колонок × 7 строк, средняя колонка — пробел кроме строк 3-4 */}
+            <div className="flex gap-[3px]" style={{height: 44}}>
+              {/* Левая стойка: 2 колонки */}
+              {[0,1].map(c => (
+                <div key={c} className="flex flex-col gap-[2px] h-full">
+                  {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
+                    <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: color}} />
+                  ))}
+                </div>
+              ))}
+              {/* Средняя перекладина: только строки 3-4 (индекс 2-3) */}
+              <div className="flex flex-col gap-[2px] h-full">
+                {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
+                  <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: (r === 2 || r === 3) ? color : 'transparent'}} />
+                ))}
+              </div>
+              {/* Правая стойка: 2 колонки */}
+              {[0,1].map(c => (
+                <div key={c} className="flex flex-col gap-[2px] h-full">
+                  {["#3dbcd4","#2e7fc1","#9c27a0","#d81b60","#e65100","#f9a825","#4caf50"].map((color, r) => (
+                    <div key={r} className="w-[5px] flex-1 rounded-[1px]" style={{background: color}} />
                   ))}
                 </div>
               ))}
