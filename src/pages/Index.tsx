@@ -124,9 +124,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex flex-col items-start gap-0.5">
             <img
-              src="https://cdn.poehali.dev/files/32a9a50b-bee5-4d78-898b-74c8e544a4f1.png"
+              src="https://cdn.poehali.dev/files/fab6b4c2-9966-4b5b-b108-48b7d4a9bcee.png"
               alt="Седьмое Небо"
               className="h-10 w-auto"
+              style={{ mixBlendMode: "screen" }}
             />
             <div className="text-sky-400 text-[10px] leading-none tracking-widest">ИЖЕВСК</div>
           </button>
