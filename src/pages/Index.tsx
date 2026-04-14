@@ -74,16 +74,15 @@ function LeadForm({ dark = false }: { dark?: boolean }) {
 }
 
 const plans = [
-  { type: "Студия", area: "28–32 м²", price: "от 5,8 млн ₽", floor: "2–26 этаж", emoji: "📐", badge: "Хит продаж", badgeColor: "bg-amber-500" },
-  { type: "1-комнатная", area: "38–47 м²", price: "от 7,2 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "", badgeColor: "" },
-  { type: "2-комнатная", area: "55–68 м²", price: "от 9,8 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "Видовые", badgeColor: "bg-sky-500" },
-  { type: "3-комнатная", area: "72–95 м²", price: "от 13,2 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
+  { type: "1-комнатная", area: "38–47 м²", price: "от 5,8 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "Хит продаж", badgeColor: "bg-amber-500" },
+  { type: "2-комнатная", area: "55–68 м²", price: "от 8,4 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "", badgeColor: "" },
+  { type: "3-комнатная", area: "72–95 м²", price: "от 8,9 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
 ];
 
 const advantages = [
   { icon: "Mountain", title: "Одна из высших точек города", desc: "26 этажей — панорамные виды на весь Ижевск, леса и водоёмы прямо из вашего окна" },
-  { icon: "CalendarCheck", title: "Ключи в 2026 году", desc: "Сдача объекта в 2026 году. Успейте выбрать лучшую квартиру по стартовым ценам" },
-  { icon: "Eye", title: "Видовые квартиры", desc: "С верхних этажей открывается незабываемая панорама города и природных ландшафтов" },
+  { icon: "CalendarCheck", title: "Ключи в 2026 году", desc: "Сдача объекта в 2026 году. Успейте выбрать лучшую квартиру по выгодным ценам" },
+  { icon: "Eye", title: "Видовые квартиры", desc: "С верхних этажей открывается незабываемая панорама города" },
   { icon: "Trees", title: "Природа рядом", desc: "Жилой комплекс у зелёных зон и водоёмов — свежий воздух и прогулки каждый день" },
   { icon: "Shield", title: "Застройщик Литум", desc: "Надёжный застройщик с многолетним опытом. Более 10 успешных проектов в Ижевске" },
   { icon: "Car", title: "Развитая инфраструктура", desc: "Школы, детские сады, магазины, поликлиники и транспорт — всё в пешей доступности" },
@@ -142,10 +141,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg">
-              <span className="text-white text-xs font-black">ДП</span>
+              <span className="text-white text-xs font-black">7Н</span>
             </div>
             <div className="text-left">
-              <div className="text-white font-bold text-sm leading-none tracking-wider">ДОМ ПРИРОДЫ</div>
+              <div className="text-white font-bold text-sm leading-none tracking-wider">СЕДЬМОЕ НЕБО</div>
               <div className="text-sky-400 text-[10px] leading-none mt-0.5 tracking-widest">ИЖЕВСК</div>
             </div>
           </button>
@@ -157,9 +156,9 @@ export default function Index() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="tel:+73412000000" className="hidden sm:flex items-center gap-1.5 text-sky-400 text-sm font-semibold hover:text-white transition-colors">
+            <a href="tel:+73412970505" className="hidden sm:flex items-center gap-1.5 text-sky-400 text-sm font-semibold hover:text-white transition-colors">
               <Icon name="Phone" size={13} />
-              +7 (3412) 00-00-00
+              +7 (3412) 97-05-05
             </a>
             <button className="md:hidden text-white p-1" onClick={() => setMenuOpen(!menuOpen)}>
               <Icon name={menuOpen ? "X" : "Menu"} size={20} />
@@ -171,8 +170,8 @@ export default function Index() {
             {navLinks.map(([id, label]) => (
               <button key={id} onClick={() => scrollTo(id)} className="text-left py-2.5 text-white/70 hover:text-sky-300 text-sm border-b border-white/5 last:border-0 transition-colors">{label}</button>
             ))}
-            <a href="tel:+73412000000" className="mt-2 text-sky-400 font-semibold py-2 flex items-center gap-2 text-sm">
-              <Icon name="Phone" size={14} />+7 (3412) 00-00-00
+            <a href="tel:+73412970505" className="mt-2 text-sky-400 font-semibold py-2 flex items-center gap-2 text-sm">
+              <Icon name="Phone" size={14} />+7 (3412) 97-05-05
             </a>
           </div>
         )}
@@ -207,7 +206,7 @@ export default function Index() {
             <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] mb-5">
               Жилой комплекс<br />
               <span className="bg-gradient-to-r from-sky-300 to-blue-400 bg-clip-text text-transparent">
-                Дом природы
+                Седьмое Небо
               </span>
             </h1>
 
@@ -239,13 +238,6 @@ export default function Index() {
               >
                 Получить консультацию
               </button>
-              <a
-                href="tel:+73412000000"
-                className="flex items-center justify-center gap-2 bg-white/10 backdrop-blur text-white border border-white/20 font-semibold py-4 px-6 rounded-xl hover:bg-white/20 transition-all text-base"
-              >
-                <Icon name="Phone" size={16} />
-                Позвонить
-              </a>
             </div>
           </div>
 
@@ -311,10 +303,6 @@ export default function Index() {
               <button onClick={() => scrollTo("contact")} className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30">
                 Оставить заявку
               </button>
-              <a href="tel:+73412000000" className="bg-white/10 text-white border border-white/20 font-semibold py-3 px-6 rounded-xl hover:bg-white/20 transition-all flex items-center gap-2 justify-center whitespace-nowrap">
-                <Icon name="Phone" size={15} />
-                Позвонить
-              </a>
             </div>
           </div>
         </div>
@@ -333,10 +321,10 @@ export default function Index() {
                 ВАРИАНТЫ КВАРТИР
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Планировки и цены</h2>
-              <p className="text-slate-500 max-w-lg mx-auto">Студии, 1, 2 и 3-комнатные квартиры на любой вкус и бюджет</p>
+              <p className="text-slate-500 max-w-lg mx-auto">1, 2 и 3-комнатные квартиры на любой вкус и бюджет</p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {plans.map((plan, i) => (
                 <div
                   key={i}
@@ -484,7 +472,7 @@ export default function Index() {
                       <Icon name="MapPin" size={16} className="text-white" />
                     </div>
                     <div>
-                      <p className="font-black text-slate-900 text-sm">ЖК Дом природы</p>
+                      <p className="font-black text-slate-900 text-sm">ЖК Седьмое Небо</p>
                       <p className="text-slate-400 text-xs">г. Ижевск · Комфорт-класс · 26 этажей</p>
                     </div>
                   </div>
@@ -521,10 +509,6 @@ export default function Index() {
                 <button onClick={() => scrollTo("contact")} className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg">
                   Записаться на экскурсию
                 </button>
-                <a href="tel:+73412000000" className="border-2 border-slate-900 text-slate-900 font-bold py-3 px-6 rounded-xl hover:bg-slate-900 hover:text-white transition-all flex items-center gap-2 justify-center whitespace-nowrap">
-                  <Icon name="Phone" size={14} />
-                  Позвонить
-                </a>
               </div>
             </div>
           </div>
@@ -563,35 +547,33 @@ export default function Index() {
               <div className="flex flex-col gap-4">
                 <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-6">
                   <p className="text-white/40 text-xs tracking-wider mb-3">ТЕЛЕФОН ОТДЕЛА ПРОДАЖ</p>
-                  <a href="tel:+73412000000" className="text-white font-black text-2xl hover:text-sky-300 transition-colors block mb-4">
-                    +7 (3412) 00-00-00
-                  </a>
-                  <a
-                    href="tel:+73412000000"
-                    className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all flex items-center gap-2 justify-center shadow-lg shadow-amber-500/30"
-                  >
-                    <Icon name="Phone" size={16} />
-                    Позвонить прямо сейчас
+                  <a href="tel:+73412970505" className="text-white font-black text-2xl hover:text-sky-300 transition-colors block mb-1">
+                    +7 (3412) 97-05-05
                   </a>
                 </div>
 
                 <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-6 space-y-4">
-                  <h4 className="text-white font-black text-base">Застройщик — Литум</h4>
-                  {[
-                    { icon: "Clock", label: "Режим работы", val: "Пн–Вс: 9:00 – 20:00" },
-                    { icon: "MapPin", label: "Адрес офиса", val: "г. Ижевск, ул. Примерная, 1" },
-                    { icon: "Mail", label: "Email", val: "info@litum.ru" },
-                  ].map((row, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                        <Icon name={row.icon} fallback="Info" size={14} className="text-sky-400" />
-                      </div>
-                      <div>
-                        <p className="text-white/30 text-[10px] tracking-wider">{row.label.toUpperCase()}</p>
-                        <p className="text-white text-sm font-medium">{row.val}</p>
-                      </div>
+                  <h4 className="text-white font-black text-base">Офис продаж — Литум</h4>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                      <Icon name="MapPin" fallback="Info" size={14} className="text-sky-400" />
                     </div>
-                  ))}
+                    <div>
+                      <p className="text-white/30 text-[10px] tracking-wider">АДРЕС</p>
+                      <p className="text-white text-sm font-medium">г. Ижевск, М. Горького, 152</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                      <Icon name="Clock" fallback="Info" size={14} className="text-sky-400" />
+                    </div>
+                    <div>
+                      <p className="text-white/30 text-[10px] tracking-wider">РЕЖИМ РАБОТЫ</p>
+                      <p className="text-white text-sm font-medium">ПН — ПТ: 9:00 — 19:00</p>
+                      <p className="text-white text-sm font-medium">СБ: 10:00 — 16:00</p>
+                      <p className="text-white/50 text-sm">ВС: выходной день</p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-5 flex items-center gap-4">
@@ -612,9 +594,9 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
-              <span className="text-white text-[10px] font-black">ДП</span>
+              <span className="text-white text-[10px] font-black">7Н</span>
             </div>
-            <span className="text-white/40 text-xs">ЖК Дом природы · г. Ижевск</span>
+            <span className="text-white/40 text-xs">ЖК Седьмое Небо · г. Ижевск</span>
           </div>
           <p className="text-white/25 text-xs">© 2024 ООО «Литум». Все права защищены.</p>
           <p className="text-white/25 text-xs">Не является публичной офертой</p>
