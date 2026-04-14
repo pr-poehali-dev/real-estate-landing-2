@@ -1,14 +1,623 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect, useRef } from "react";
+import Icon from "@/components/ui/icon";
 
-const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+const HERO_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/f9c569d3-a561-46f2-8bf0-15a15b652d03.jpg";
+const INTERIOR_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/1768deb3-2985-4c01-ba2f-a92190189a79.jpg";
+const AERIAL_IMG = "https://cdn.poehali.dev/projects/e7d132dc-1de9-4803-aefe-e1ef907cdec3/files/ee9f8544-be8e-4ba8-abb0-06e1324fe043.jpg";
+
+function useInView(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, inView };
+}
+
+function LeadForm({ dark = false }: { dark?: boolean }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
+  if (sent) {
+    return (
+      <div className={`flex flex-col items-center justify-center py-8 gap-3 ${dark ? "text-white" : "text-navy"}`}>
+        <div className="text-4xl">✓</div>
+        <p className="font-semibold text-lg">Заявка отправлена!</p>
+        <p className="text-sm opacity-60">Мы перезвоним в течение 15 минут</p>
       </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <input
+        type="text"
+        placeholder="Ваше имя"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        required
+        className={`px-4 py-3 rounded-xl text-sm outline-none transition-all border-2 ${
+          dark
+            ? "bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-sky-300"
+            : "bg-white border-blue-100 text-slate-800 placeholder:text-slate-400 focus:border-blue-400"
+        }`}
+      />
+      <input
+        type="tel"
+        placeholder="+7 (___) ___-__-__"
+        value={phone}
+        onChange={e => setPhone(e.target.value)}
+        required
+        className={`px-4 py-3 rounded-xl text-sm outline-none transition-all border-2 ${
+          dark
+            ? "bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-sky-300"
+            : "bg-white border-blue-100 text-slate-800 placeholder:text-slate-400 focus:border-blue-400"
+        }`}
+      />
+      <button
+        type="submit"
+        className="bg-amber-500 text-white font-semibold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-100 shadow-lg shadow-amber-500/30 text-sm"
+      >
+        Получить консультацию →
+      </button>
+      <p className="text-xs opacity-40 text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+    </form>
+  );
+}
+
+const plans = [
+  { type: "Студия", area: "28–32 м²", price: "от 6,2 млн ₽", floor: "2–26 этаж", emoji: "📐", badge: "Хит продаж", badgeColor: "bg-amber-500" },
+  { type: "1-комнатная", area: "38–47 м²", price: "от 7,5 млн ₽", floor: "2–26 этаж", emoji: "🛋️", badge: "", badgeColor: "" },
+  { type: "2-комнатная", area: "55–68 м²", price: "от 10,2 млн ₽", floor: "2–26 этаж", emoji: "🏠", badge: "Видовые", badgeColor: "bg-sky-500" },
+  { type: "3-комнатная", area: "72–95 м²", price: "от 13,8 млн ₽", floor: "10–26 этаж", emoji: "🌆", badge: "", badgeColor: "" },
+];
+
+const advantages = [
+  { icon: "Mountain", title: "Одна из высших точек города", desc: "26 этажей — панорамные виды на весь Ижевск, леса и водоёмы прямо из вашего окна" },
+  { icon: "CalendarCheck", title: "Ключи в 2026 году", desc: "Сдача объекта в 2026 году. Успейте выбрать лучшую квартиру по стартовым ценам" },
+  { icon: "Eye", title: "Видовые квартиры", desc: "С верхних этажей открывается незабываемая панорама города и природных ландшафтов" },
+  { icon: "Trees", title: "Природа рядом", desc: "Жилой комплекс у зелёных зон и водоёмов — свежий воздух и прогулки каждый день" },
+  { icon: "Shield", title: "Застройщик Литум", desc: "Надёжный застройщик с многолетним опытом. Более 10 успешных проектов в Ижевске" },
+  { icon: "Car", title: "Развитая инфраструктура", desc: "Школы, детские сады, магазины, поликлиники и транспорт — всё в пешей доступности" },
+];
+
+const gallery = [
+  { src: HERO_IMG, label: "Фасад ЖК" },
+  { src: INTERIOR_IMG, label: "Интерьер квартиры" },
+  { src: AERIAL_IMG, label: "Вид с высоты" },
+  { src: INTERIOR_IMG, label: "Кухня-гостиная" },
+  { src: HERO_IMG, label: "Благоустройство" },
+  { src: AERIAL_IMG, label: "Район" },
+];
+
+export default function Index() {
+  const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const heroS = useInView(0.01);
+  const advS = useInView();
+  const plansS = useInView();
+  const galleryS = useInView();
+  const locationS = useInView();
+  const contactS = useInView();
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
+  const navLinks = [
+    ["advantages", "Преимущества"],
+    ["plans", "Планировки"],
+    ["gallery", "Галерея"],
+    ["location", "Локация"],
+    ["contact", "Контакты"],
+  ];
+
+  return (
+    <div style={{ fontFamily: "'Golos Text', sans-serif" }} className="bg-slate-50 text-slate-900 min-h-screen overflow-x-hidden">
+
+      {/* GOOGLE FONT */}
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap');`}</style>
+
+      {/* ── NAV ── */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-2xl" : "bg-slate-900/80 backdrop-blur"}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+          <button onClick={() => scrollTo("hero")} className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg">
+              <span className="text-white text-xs font-black">ДП</span>
+            </div>
+            <div className="text-left">
+              <div className="text-white font-bold text-sm leading-none tracking-wider">ДОМ ПРИРОДЫ</div>
+              <div className="text-sky-400 text-[10px] leading-none mt-0.5 tracking-widest">ИЖЕВСК</div>
+            </div>
+          </button>
+
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/60">
+            {navLinks.map(([id, label]) => (
+              <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors hover:text-sky-300">{label}</button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a href="tel:+73412000000" className="hidden sm:flex items-center gap-1.5 text-sky-400 text-sm font-semibold hover:text-white transition-colors">
+              <Icon name="Phone" size={13} />
+              +7 (3412) 00-00-00
+            </a>
+            <button className="md:hidden text-white p-1" onClick={() => setMenuOpen(!menuOpen)}>
+              <Icon name={menuOpen ? "X" : "Menu"} size={20} />
+            </button>
+          </div>
+        </div>
+        {menuOpen && (
+          <div className="md:hidden bg-slate-900 border-t border-white/10 px-5 py-4 flex flex-col gap-1">
+            {navLinks.map(([id, label]) => (
+              <button key={id} onClick={() => scrollTo(id)} className="text-left py-2.5 text-white/70 hover:text-sky-300 text-sm border-b border-white/5 last:border-0 transition-colors">{label}</button>
+            ))}
+            <a href="tel:+73412000000" className="mt-2 text-sky-400 font-semibold py-2 flex items-center gap-2 text-sm">
+              <Icon name="Phone" size={14} />+7 (3412) 00-00-00
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* ── HERO ── */}
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-16">
+        <div className="absolute inset-0">
+          <img src={HERO_IMG} alt="ЖК Дом природы" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-900/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+        </div>
+
+        {/* Floating pill */}
+        <div className="absolute top-24 right-6 sm:right-14 z-10">
+          <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xl animate-pulse">
+            🔑 КЛЮЧИ В 2026
+          </div>
+        </div>
+
+        <div
+          ref={heroS.ref}
+          className={`relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full grid lg:grid-cols-2 gap-12 items-center py-20 transition-all duration-1000 ${heroS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
+          {/* LEFT */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-400/30 rounded-full px-4 py-1.5 text-sky-300 text-xs font-semibold mb-6 tracking-wider">
+              <Icon name="MapPin" size={12} />
+              ИЖЕВСК · КОМФОРТ-КЛАСС
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] mb-5">
+              Жилой комплекс<br />
+              <span className="bg-gradient-to-r from-sky-300 to-blue-400 bg-clip-text text-transparent">
+                Дом природы
+              </span>
+            </h1>
+
+            <p className="text-white/70 text-lg sm:text-xl mb-2 font-light">
+              26 этажей · Видовые квартиры · Ижевск
+            </p>
+            <p className="text-white/50 text-base mb-8 max-w-md leading-relaxed">
+              Одна из самых высоких точек города. Панорамные виды на Ижевск и природу. Комфорт-класс от проверенного застройщика.
+            </p>
+
+            {/* Stats */}
+            <div className="flex flex-wrap gap-3 mb-9">
+              {[
+                { label: "ЦЕНА ОТ", val: "6,2 млн ₽" },
+                { label: "ЭТАЖЕЙ", val: "26" },
+                { label: "СДАЧА", val: "2026" },
+              ].map(s => (
+                <div key={s.label} className="bg-white/10 backdrop-blur border border-white/15 rounded-xl px-4 py-3">
+                  <div className="text-sky-400 text-[10px] font-bold tracking-wider mb-0.5">{s.label}</div>
+                  <div className="text-white font-black text-xl">{s.val}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => scrollTo("contact")}
+                className="bg-amber-500 text-white font-bold py-4 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-2xl shadow-amber-500/40 text-base"
+              >
+                Получить консультацию
+              </button>
+              <a
+                href="tel:+73412000000"
+                className="flex items-center justify-center gap-2 bg-white/10 backdrop-blur text-white border border-white/20 font-semibold py-4 px-6 rounded-xl hover:bg-white/20 transition-all text-base"
+              >
+                <Icon name="Phone" size={16} />
+                Позвонить
+              </a>
+            </div>
+          </div>
+
+          {/* RIGHT — form */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-7 sm:p-8 shadow-2xl">
+            <p className="text-sky-300 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ</p>
+            <h3 className="text-white font-black text-2xl mb-1">Узнайте цену</h3>
+            <p className="text-white/50 text-sm mb-6">Менеджер перезвонит в течение 15 минут</p>
+            <LeadForm dark />
+            <div className="mt-5 flex items-center gap-2 text-white/30 text-xs">
+              <Icon name="Lock" size={12} />
+              Данные защищены и не передаются третьим лицам
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/30">
+          <span className="text-[10px] tracking-[0.3em] font-medium">ЛИСТАЙТЕ</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" style={{ animation: "bounce 1.5s infinite" }} />
+        </div>
+      </section>
+
+      {/* ── ADVANTAGES ── */}
+      <section id="advantages" className="py-20 sm:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div
+            ref={advS.ref}
+            className={`transition-all duration-700 ${advS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-xs font-bold rounded-full px-4 py-1.5 mb-5 tracking-wider">
+                <Icon name="Star" size={12} />
+                ПОЧЕМУ ВЫБИРАЮТ НАС
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Преимущества ЖК</h2>
+              <p className="text-slate-500 max-w-lg mx-auto">Продуманный проект комфорт-класса в одной из лучших точек Ижевска</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {advantages.map((adv, i) => (
+                <div
+                  key={i}
+                  className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 bg-slate-50/80"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Icon name={adv.icon} fallback="Star" size={22} className="text-blue-600" />
+                  </div>
+                  <h3 className="font-black text-slate-900 mb-2 text-[15px]">{adv.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{adv.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Strip */}
+          <div className="mt-14 bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="text-white font-black text-xl mb-1">Хотите узнать подробности?</p>
+              <p className="text-white/50 text-sm">Наш менеджер ответит на все вопросы и подберёт квартиру</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <button onClick={() => scrollTo("contact")} className="bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all whitespace-nowrap shadow-lg shadow-amber-500/30">
+                Оставить заявку
+              </button>
+              <a href="tel:+73412000000" className="bg-white/10 text-white border border-white/20 font-semibold py-3 px-6 rounded-xl hover:bg-white/20 transition-all flex items-center gap-2 justify-center whitespace-nowrap">
+                <Icon name="Phone" size={15} />
+                Позвонить
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PLANS ── */}
+      <section id="plans" className="py-20 sm:py-28 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div
+            ref={plansS.ref}
+            className={`transition-all duration-700 ${plansS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-xs font-bold rounded-full px-4 py-1.5 mb-5 tracking-wider">
+                <Icon name="LayoutGrid" size={12} />
+                ВАРИАНТЫ КВАРТИР
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Планировки и цены</h2>
+              <p className="text-slate-500 max-w-lg mx-auto">Студии, 1, 2 и 3-комнатные квартиры на любой вкус и бюджет</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {plans.map((plan, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-50 transition-all duration-300 group flex flex-col"
+                >
+                  <div className="relative bg-gradient-to-br from-sky-50 to-blue-100 p-8 text-center text-5xl">
+                    {plan.emoji}
+                    {plan.badge && (
+                      <span className={`absolute top-3 right-3 ${plan.badgeColor} text-white text-[10px] font-black px-2 py-1 rounded-lg`}>
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="font-black text-slate-900 text-lg mb-3">{plan.type}</h3>
+                    <div className="space-y-2 text-sm text-slate-500 mb-4 flex-1">
+                      <div className="flex justify-between">
+                        <span>Площадь:</span>
+                        <span className="font-bold text-slate-700">{plan.area}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Этаж:</span>
+                        <span className="font-bold text-slate-700">{plan.floor}</span>
+                      </div>
+                    </div>
+                    <div className="border-t border-slate-100 pt-4">
+                      <div className="text-blue-600 font-black text-lg mb-3">{plan.price}</div>
+                      <button
+                        onClick={() => scrollTo("contact")}
+                        className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+                      >
+                        Узнать детали →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <p className="text-slate-400 text-sm mb-4">Не нашли подходящий вариант? Подберём квартиру под ваш бюджет</p>
+              <button
+                onClick={() => scrollTo("contact")}
+                className="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-lg shadow-amber-500/30"
+              >
+                Подобрать квартиру бесплатно
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── GALLERY ── */}
+      <section id="gallery" className="py-20 sm:py-28 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div
+            ref={galleryS.ref}
+            className={`transition-all duration-700 ${galleryS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 bg-white/10 text-sky-400 text-xs font-bold rounded-full px-4 py-1.5 mb-5 tracking-wider">
+                <Icon name="Images" size={12} />
+                ФОТОГРАФИИ
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">Галерея проекта</h2>
+              <p className="text-white/40 max-w-lg mx-auto">Фасад, интерьеры, виды с высоты птичьего полёта</p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+              {gallery.map((item, i) => (
+                <div
+                  key={i}
+                  className="relative overflow-hidden rounded-xl cursor-pointer group aspect-[4/3]"
+                  onClick={() => setGalleryOpen(i)}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.label}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-bold translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    {item.label}
+                  </div>
+                  <div className="absolute top-3 right-3 bg-black/30 backdrop-blur rounded-lg p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Icon name="ZoomIn" size={14} className="text-white" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <button
+                onClick={() => scrollTo("contact")}
+                className="bg-amber-500 text-white font-bold py-4 px-10 rounded-xl hover:bg-amber-400 transition-all hover:scale-105 shadow-xl shadow-amber-500/30 text-base"
+              >
+                Хочу такую квартиру
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {galleryOpen !== null && (
+          <div
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            onClick={() => setGalleryOpen(null)}
+          >
+            <button className="absolute top-5 right-5 text-white/50 hover:text-white transition-colors">
+              <Icon name="X" size={28} />
+            </button>
+            <img
+              src={gallery[galleryOpen].src}
+              alt={gallery[galleryOpen].label}
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl"
+              onClick={e => e.stopPropagation()}
+            />
+          </div>
+        )}
+      </section>
+
+      {/* ── LOCATION ── */}
+      <section id="location" className="py-20 sm:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div
+            ref={locationS.ref}
+            className={`transition-all duration-700 ${locationS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-xs font-bold rounded-full px-4 py-1.5 mb-5 tracking-wider">
+                <Icon name="MapPin" size={12} />
+                РАСПОЛОЖЕНИЕ
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Локация и инфраструктура</h2>
+              <p className="text-slate-500 max-w-lg mx-auto">Всё необходимое для комфортной жизни — в шаговой доступности</p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              {/* Map */}
+              <div className="relative rounded-2xl overflow-hidden h-72 sm:h-96 shadow-2xl">
+                <img src={AERIAL_IMG} alt="Район" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur rounded-xl p-4 shadow-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shrink-0">
+                      <Icon name="MapPin" size={16} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="font-black text-slate-900 text-sm">ЖК Дом природы</p>
+                      <p className="text-slate-400 text-xs">г. Ижевск · Комфорт-класс · 26 этажей</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Infra */}
+              <div className="space-y-3">
+                {[
+                  { icon: "GraduationCap", label: "Школы и детские сады", val: "3–7 мин пешком" },
+                  { icon: "ShoppingCart", label: "Торговые центры", val: "5–10 мин" },
+                  { icon: "Cross", label: "Медицинские учреждения", val: "10 мин" },
+                  { icon: "Trees", label: "Парки и скверы", val: "Рядом с домом" },
+                  { icon: "Bus", label: "Остановки транспорта", val: "2–3 мин пешком" },
+                  { icon: "Dumbbell", label: "Спортивные объекты", val: "7–15 мин" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4 p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition-colors bg-slate-50/50">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center shrink-0">
+                      <Icon name={item.icon} fallback="MapPin" size={18} className="text-blue-600" />
+                    </div>
+                    <span className="flex-1 font-medium text-slate-700 text-sm">{item.label}</span>
+                    <span className="text-blue-600 text-sm font-bold whitespace-nowrap">{item.val}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-12 bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-8 border-2 border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div>
+                <p className="text-slate-900 font-black text-lg mb-1">Хотите посмотреть вживую?</p>
+                <p className="text-slate-500 text-sm">Запишитесь на экскурсию — покажем объект, ответим на вопросы</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                <button onClick={() => scrollTo("contact")} className="bg-slate-900 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-800 transition-colors whitespace-nowrap shadow-lg">
+                  Записаться на экскурсию
+                </button>
+                <a href="tel:+73412000000" className="border-2 border-slate-900 text-slate-900 font-bold py-3 px-6 rounded-xl hover:bg-slate-900 hover:text-white transition-all flex items-center gap-2 justify-center whitespace-nowrap">
+                  <Icon name="Phone" size={14} />
+                  Позвонить
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT ── */}
+      <section id="contact" className="py-20 sm:py-28 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-sky-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
+          <div
+            ref={contactS.ref}
+            className={`transition-all duration-700 ${contactS.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 bg-white/10 text-sky-400 text-xs font-bold rounded-full px-4 py-1.5 mb-5 tracking-wider">
+                <Icon name="MessageSquare" size={12} />
+                СВЯЗАТЬСЯ С НАМИ
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">Получите консультацию</h2>
+              <p className="text-white/40 max-w-lg mx-auto">Оставьте заявку — менеджер перезвонит в течение 15 минут и ответит на все вопросы</p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Form */}
+              <div className="bg-white/8 backdrop-blur-xl border border-white/15 rounded-2xl p-7 sm:p-8">
+                <p className="text-sky-400 text-xs font-bold tracking-wider mb-1">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ</p>
+                <h3 className="text-white font-black text-2xl mb-1">Оставить заявку</h3>
+                <p className="text-white/40 text-sm mb-6">Подберём квартиру под ваш бюджет и пожелания</p>
+                <LeadForm dark />
+              </div>
+
+              {/* Contacts */}
+              <div className="flex flex-col gap-4">
+                <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-6">
+                  <p className="text-white/40 text-xs tracking-wider mb-3">ТЕЛЕФОН ОТДЕЛА ПРОДАЖ</p>
+                  <a href="tel:+73412000000" className="text-white font-black text-2xl hover:text-sky-300 transition-colors block mb-4">
+                    +7 (3412) 00-00-00
+                  </a>
+                  <a
+                    href="tel:+73412000000"
+                    className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-400 transition-all flex items-center gap-2 justify-center shadow-lg shadow-amber-500/30"
+                  >
+                    <Icon name="Phone" size={16} />
+                    Позвонить прямо сейчас
+                  </a>
+                </div>
+
+                <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-6 space-y-4">
+                  <h4 className="text-white font-black text-base">Застройщик — Литум</h4>
+                  {[
+                    { icon: "Clock", label: "Режим работы", val: "Пн–Вс: 9:00 – 20:00" },
+                    { icon: "MapPin", label: "Адрес офиса", val: "г. Ижевск, ул. Примерная, 1" },
+                    { icon: "Mail", label: "Email", val: "info@litum.ru" },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                        <Icon name={row.icon} fallback="Info" size={14} className="text-sky-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/30 text-[10px] tracking-wider">{row.label.toUpperCase()}</p>
+                        <p className="text-white text-sm font-medium">{row.val}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl p-5 flex items-center gap-4">
+                  <div className="text-3xl">🏆</div>
+                  <div>
+                    <p className="text-white font-black text-sm">Надёжный застройщик</p>
+                    <p className="text-white/40 text-xs leading-relaxed">Более 10 лет на рынке недвижимости Ижевска. Все объекты сдаются в срок.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="bg-slate-950 border-t border-white/5 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+              <span className="text-white text-[10px] font-black">ДП</span>
+            </div>
+            <span className="text-white/40 text-xs">ЖК Дом природы · г. Ижевск</span>
+          </div>
+          <p className="text-white/25 text-xs">© 2024 ООО «Литум». Все права защищены.</p>
+          <p className="text-white/25 text-xs">Не является публичной офертой</p>
+        </div>
+      </footer>
     </div>
   );
-};
-
-export default Index;
+}
