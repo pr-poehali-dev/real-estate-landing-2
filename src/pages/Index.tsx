@@ -56,8 +56,8 @@ const plans = [
 ];
 
 const advantages = [
-  { icon: "Mountain", title: "Одна из высших точек города", desc: "26 этажей — панорамные виды на весь Ижевск, леса и водоёмы прямо из вашего окна" },
-  { icon: "CalendarCheck", title: "Ключи в 2026 году", desc: "Сдача объекта в 2026 году. Успейте выбрать лучшую квартиру по выгодным ценам" },
+  { icon: "Mountain", title: "Одна из высших точек города", desc: "26 этажей — панорамные виды на весь Ижевск, парк и водоёмы прямо из вашего окна" },
+  { icon: "CalendarCheck", title: "Ключи в 2026 году", desc: "Сдача объекта в 2026 году. Успейте выбрать квартиру по выгодным ценам" },
   { icon: "Eye", title: "Видовые квартиры", desc: "С верхних этажей открывается незабываемая панорама города" },
   { icon: "Trees", title: "Природа рядом", desc: "Жилой комплекс у зелёных зон и водоёмов — свежий воздух и прогулки каждый день" },
   { icon: "Shield", title: "Застройщик Литум", desc: "Надёжный застройщик с многолетним опытом. Более 10 успешных проектов в Ижевске" },
@@ -320,7 +320,7 @@ export default function Index() {
                 ВАРИАНТЫ КВАРТИР
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Планировки и цены</h2>
-              <p className="text-slate-500 max-w-lg mx-auto">1, 2 и 3-комнатные квартиры на любой вкус и бюджет</p>
+              <p className="text-slate-500 max-w-lg mx-auto"></p>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -534,7 +534,7 @@ export default function Index() {
                 СВЯЗАТЬСЯ С НАМИ
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">Получите консультацию</h2>
-              <p className="text-white/40 max-w-lg mx-auto">Оставьте заявку — менеджер перезвонит в течение 15 минут и ответит на все вопросы</p>
+              <p className="text-white/40 max-w-lg mx-auto">Наш менеджер перезвонит вам в ближайшее время</p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
